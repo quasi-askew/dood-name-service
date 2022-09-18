@@ -1,32 +1,38 @@
 const main = async () => {
   // The first return is the deployer, the second is a random account
-  const [owner, randomPerson] = await hre.ethers.getSigners();
+  // const [owner, randomPerson] = await hre.ethers.getSigners();
   const domainContractFactory = await hre.ethers.getContractFactory("Domains");
-  const domainContract = await domainContractFactory.deploy();
+  const domainContract = await domainContractFactory.deploy("dood");
   await domainContract.deployed();
   console.log("Contract deployed to:", domainContract.address);
-  console.log("Contract deployed by:", owner.address);
 
-  let txn = await domainContract.register("doom");
+  let txn = await domainContract.register("happy", {
+    value: hre.ethers.utils.parseEther("0.1"),
+  });
   await txn.wait();
 
-  const domainAddress = await domainContract.getAddress("doom");
-  console.log("Owner of domain doom:", domainAddress);
+  const domainAddress = await domainContract.getAddress("dood");
+  console.log("Owner of domain dood:", domainAddress);
 
-  let setDoodTxn = await domainContract.connect(owner).setDoodleID("doom", "1234");
-  await setDoodTxn.wait();
+  const balance = await hre.ethers.provider.getBalance(domainContract.address);
+  console.log("Contract balance:", hre.ethers.utils.formatEther(balance));
 
-  const doodIDSet = await domainContract.getDoodleID("doom");
-  console.log("Doodle ID is", doodIDSet);
+  // let setDoodTxn = await domainContract
+  //   .connect(owner)
+  //   .setDoodleID("doom", "1234");
+  // await setDoodTxn.wait();
 
-  // Trying to set a record that doesn't belong to me!
-  txn = await domainContract
-    .connect(randomPerson)
-    .setRecord("doom", "Haha my domain now!");
-  await txn.wait();
+  // const doodIDSet = await domainContract.getDoodleID("doom");
+  // console.log("Doodle ID is", doodIDSet);
 
-  const recordSet = await domainContract.getRecord("doom")
-  console.log("record", recordSet);
+  // // Trying to set a record that doesn't belong to me!
+  // txn = await domainContract
+  //   .connect(randomPerson)
+  //   .setRecord("doom", "Haha my domain now!");
+  // await txn.wait();
+
+  // const recordSet = await domainContract.getRecord("doom");
+  // console.log("record", recordSet);
 };
 
 const runMain = async () => {
