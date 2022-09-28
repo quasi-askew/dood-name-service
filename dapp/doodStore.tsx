@@ -13,4 +13,5 @@ const useDoodStore = create<DoodState>()(
       set((state) => ({ currentAccount: account })),
   }))
 );
+
 export default useDoodStore;

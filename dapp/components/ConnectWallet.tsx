@@ -3,7 +3,7 @@ import { Button } from "@chakra-ui/react";
 
 declare var window: any;
 
-const ConnectWallet = ({}) => {
+export default function ConnectWallet({}) {
   const setCurrentAccount = useDoodStore((state) => state.setCurrentAccount);
 
   const connectWallet = async () => {
@@ -34,6 +34,4 @@ const ConnectWallet = ({}) => {
       </Button>
     </div>
   );
-};
-
-export default ConnectWallet;
+}
