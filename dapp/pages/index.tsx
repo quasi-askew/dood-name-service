@@ -5,6 +5,7 @@ import Footer from "../components/Footer";
 import Layout from "../components/Layout";
 import useDoodStore from "../doodStore";
 import { Heading } from "@chakra-ui/react";
+import DoodMintForm from "../components/DoodMintForm";
 
 declare var window: any;
 
@@ -39,7 +40,7 @@ export default function Home() {
   return (
     <>
       <Heading as="h1">Dood Name Service 🌈</Heading>
-      {!currentAccount && <ConnectWallet />}
+      {!currentAccount ? <ConnectWallet /> : <DoodMintForm />}
     </>
   );
 }

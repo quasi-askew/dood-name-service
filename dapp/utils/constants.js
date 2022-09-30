@@ -1,0 +1,2 @@
+export const TOP_LEVEL_DOMAIN = ".dood";
+export const CONTRACT_ADDRESS = "0x1EEdB5011aF6bd22F9F3A38335C41cFd21b50AA6";
